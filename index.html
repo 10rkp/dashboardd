@@ -1,0 +1,289 @@
+<!-- Description: A todo user page for todo app.
+	Date: 13.04.2022
+	Edited: 23.04.2022, 
+	Developer/Editor: Chhavi Dadhich
+	Additional Editor:Rubaiya Kabir
+	
+	
+	Edits: 1.a: Added a time input, user table with status and label, button for edit and remove, edit modal form, display for category labels.
+	Edits: Changed color, footer
+	
+	
+	Editor: 1.a: Chhavi Dadhich
+    Editor: 1.b: Rubaiya Kabir
+	
+-->	
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <title>todo_page</title>
+    <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lora">
+    <link rel="stylesheet" href="assets/fonts/fontawesome-all.min.css">
+    <link rel="stylesheet" href="assets/fonts/font-awesome.min.css">
+    <link rel="stylesheet" href="assets/fonts/ionicons.min.css">
+    <link rel="stylesheet" href="assets/fonts/fontawesome5-overrides.min.css">
+    <!-- <link rel="stylesheet" href="assets/css/Article-Clean.css"> -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css">
+    <!-- <link rel="stylesheet" href="assets/css/sidebar.css"> -->
+</head>
+
+<body>
+    <ul class="nav flex-column shadow d-flex sidebar mobile-hid">
+        <li class="nav-item logo-holder">
+            <div class="text-center text-white logo py-4 mx-4"><a id="todo-link" href="#"><strong>Todo</strong></a><a class="text-white float-right" id="sidebarToggleHolder" href="#"><i class="fas fa-bars" id="sidebarToggle"></i></a></div>
+        </li>
+        <li class="nav-item"><a class="nav-link active text-left text-white py-1 px-0" href="#"><i class="fas fa-tachometer-alt mx-3"></i><span class="text-nowrap mx-2">Dashboard</span></a></li>
+        <li class="nav-item"><a class="nav-link text-left text-white py-1 px-0" href="#"><i class="fas fa-user mx-3"></i><span class="text-nowrap mx-2">User profile</span></a></li>
+        <li class="nav-item"><a class="nav-link text-left text-white py-1 px-0" href="#"><i class="fas fa-calendar-alt mx-3"></i><span class="text-nowrap mx-2">Calender</span></a></li>
+        <li class="nav-item"><a class="nav-link text-left text-white py-1 px-0" href="#"><i class="fas fa-university mx-3"></i><span class="text-nowrap mx-2">Library</span></a></li>
+        <li class="nav-item dropdown"><a class="dropdown-toggle nav-link text-left text-white py-1 px-0 position-relative" aria-expanded="false" data-toggle="dropdown" href="#"><i class="fas fa-sliders-h mx-3"></i><span class="text-nowrap mx-2">Settings</span><i class="fas fa-caret-down float-none float-lg-right fa-sm"></i></a>
+            <div class="dropdown-menu border-0 animated fadeIn"><a class="dropdown-item text-white" href="#"><span>Change password</span></a><a class="dropdown-item text-white" href="#"><span>Change email</span></a><a class="dropdown-item text-white" href="#"><span>More</span></a></div>
+        </li>
+        <li class="nav-item"><a class="nav-link text-left text-white py-1 px-0" href="#"><i class="fas fa-sign-out-alt mx-3"></i><i class="fa fa-caret-right d-none position-absolute"></i><span class="text-nowrap mx-2">Log out</span></a></li>
+    </ul>
+    <div class="container article-clean">
+        <div class="row">
+            <div class="col-lg-10 col-xl-8 offset-lg-1 offset-xl-2" id="quote" style="padding: 0px 10px;">
+                <div class="text-center intro">
+                    <h1 class="text-center wobble animated">Quote goes here</h1>
+                    <div id="date" style="margin: 10px;padding: 10px;">
+						<script>
+							var today = new Date();
+							var date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
+							document.getElementById("date").innerHTML = date;
+						</script>
+					</div>
+                </div>
+				<div class = "header" style="margin: 40px 0 40px;" >
+					<h3> Today Tasks</h3>
+				</div>
+				
+            </div>
+        </div>
+        <div class="col" style="/*margin:  ;*/height: 20px;"></div>
+        <div class="row" id="entries" style="/*margin: 0 0 20px;*/">
+            <div class="col" placeholder="">
+                <form><input class="form-control" type="number" id="priority" min="1" max="4" placeholder="Priority" style="margin: 10px;"></form>
+            </div>
+            <div class="col">
+                <form><input class="form-control" type="text" id="task" placeholder="Task description" style="margin: 10px;"></form>
+            </div>
+            <div class="col">
+                <form><input class="form-control" type="time" style="margin: 10px;" step="1"></form>
+            </div>
+            <div class="col">
+                <div class="dropdown"><button class="btn btn-primary dropdown-toggle" aria-expanded="false" data-toggle="dropdown" id="category" type="button" style="margin: 10px;">Category</button>
+                    <div class="dropdown-menu"><a class="dropdown-item text-success" href="#">Business</a><a class="dropdown-item text-warning" href="#">Social</a><a class="dropdown-item text-danger" href="#">Important</a></div>
+                </div>
+            </div>
+            <div class="col text-left"><button class="btn btn-primary" id="submit" type="button">ADD</button></div>
+        </div>
+        <div id="task" class="content-categories" style="margin: 30px 20px;">
+            <div>
+                <ul class="nav nav-tabs" role="tablist">
+                    <li class="nav-item" role="presentation"><a class="nav-link" role="tab" data-toggle="tab" href="#tab-1">All</a></li>
+                    <li class="nav-item" role="presentation"><a class="nav-link" role="tab" data-toggle="tab" href="#tab-2">Business</a></li>
+                    <li class="nav-item" role="presentation"><a class="nav-link active" role="tab" data-toggle="tab" href="#tab-3">Social</a></li>
+                    <li class="nav-item" role="presentation"><a class="nav-link" role="tab" data-toggle="tab" href="#tab-4">Important</a></li>
+                </ul>
+                <div class="tab-content">
+                    <div class="tab-pane" role="tabpanel" id="tab-1">
+                        <div class="table-responsive" style="margin: 10px 20px 10px 10px;/*margin-right: 40px;*/">
+                            <table class="table">
+                                <thead id="task-list-1">
+                                    <tr style="margin: 10px;padding: 12px 6px;">
+                                        <th>Priority</th>
+                                        <th>Task</th>
+                                        <th>Duration</th>
+                                        <th>Status</th>
+                                        <th>
+                                            <div class="dropdown"><button class="btn btn-primary dropdown-toggle text-right bg-light border-light" aria-expanded="false" data-toggle="dropdown" id="sort" type="button" style="/*height: 30px;*/background: #dddddd;/*width: 51.6562px;*//*padding: 10px 6px;*/color: rgb(33,37,41);"><i class="fa fa-sort-amount-desc"></i></button>
+                                                <div class="dropdown-menu"><a class="dropdown-item" href="#">First Item</a><a class="dropdown-item" href="#">Second Item</a><a class="dropdown-item" href="#">Third Item</a></div>
+                                            </div>
+                                        </th>
+                                        <th><button class="btn btn-primary text-dark bg-light border-light" id="search-1" type="button"><i class="fa fa-search bg-light border-dark"></i></button></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>Cell 1</td>
+                                        <td>Cell 2</td>
+                                        <td>Text</td>
+                                        <td>
+                                            <div class="dropdown"><button class="btn btn-primary dropdown-toggle bg-white border rounded-pill border-white" aria-expanded="false" data-toggle="dropdown" id="status" type="button"><svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icon-tabler-sticker border-dark shadow-none" style="color: rgb(74,71,71);">
+                                                        <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                                                        <path d="M20 12l-2 .5a6 6 0 0 1 -6.5 -6.5l.5 -2l8 8"></path>
+                                                        <path d="M20 12a8 8 0 1 1 -8 -8"></path>
+                                                    </svg></button>
+                                                <div class="dropdown-menu"><a class="dropdown-item text-center bg-warning border rounded-pill" href="#">Started</a><a class="dropdown-item text-center bg-primary border rounded-pill" href="#">In progress</a><a class="dropdown-item text-center bg-success border rounded-pill" href="#">Done</a></div>
+                                            </div>
+                                        </td>
+                                        <td><button class="btn btn-primary text-center text-dark bg-light border rounded-pill border-white" data-toggle="modal" data-target="#edit-modal" id="edit" type="button"><i class="fa fa-edit"></i></button></td>
+                                        <td><button class="btn btn-primary text-dark bg-light border rounded-pill border-white" id = "delete" type="button"><i class="icon ion-android-delete border-dark flex-fill"></i></button></td>
+                                    </tr>
+                                    
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="tab-pane" role="tabpanel" id ="tab-2">
+                        <div class="table-responsive" style="margin: 10px 20px 10px 10px;/*margin-right: 40px;*/">
+                            <table class="table">
+                                <thead id="task-list-2">
+                                    <tr style="margin: 10px;padding: 12px 6px;">
+                                        <th>Priority</th>
+                                        <th>Task</th>
+                                        <th>Duration</th>
+                                        <th>Status</th>
+                                        <th>
+                                            <div class="dropdown"><button class="btn btn-primary dropdown-toggle text-right bg-light border-light" aria-expanded="false" data-toggle="dropdown" id="sort" type="button" style="/*height: 30px;*/background: #dddddd;/*width: 51.6562px;*//*padding: 10px 6px;*/color: rgb(33,37,41);"><i class="fa fa-sort-amount-desc"></i></button>
+                                                <div class="dropdown-menu"><a class="dropdown-item" href="#">First Item</a><a class="dropdown-item" href="#">Second Item</a><a class="dropdown-item" href="#">Third Item</a></div>
+                                            </div>
+                                        </th>
+                                        <th><button class="btn btn-primary text-dark bg-light border-light" id="search" type="button"><i class="fa fa-search bg-light border-dark"></i></button></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>Cell 1</td>
+                                        <td>Cell 2</td>
+                                        <td>Text</td>
+                                        <td>
+                                            <div class="dropdown"><button class="btn btn-primary dropdown-toggle bg-white border rounded-pill border-white" aria-expanded="false" data-toggle="dropdown" id="status" type="button"><svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icon-tabler-sticker border-dark shadow-none" style="color: rgb(74,71,71);">
+                                                        <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                                                        <path d="M20 12l-2 .5a6 6 0 0 1 -6.5 -6.5l.5 -2l8 8"></path>
+                                                        <path d="M20 12a8 8 0 1 1 -8 -8"></path>
+                                                    </svg></button>
+                                                <div class="dropdown-menu"><a class="dropdown-item text-center bg-warning border rounded-pill" href="#">Started</a><a class="dropdown-item text-center bg-primary border rounded-pill" href="#">In progress</a><a class="dropdown-item text-center bg-success border rounded-pill" href="#">Done</a></div>
+                                            </div>
+                                        </td>
+                                        <td><button class="btn btn-primary text-center text-dark bg-light border rounded-pill border-white" data-toggle="modal" data-target="#edit-modal" id="edit" type="button"><i class="fa fa-edit"></i></button></td>
+                                        <td><button class="btn btn-primary text-dark bg-light border rounded-pill border-white" id = "delete" type="button"><i class="icon ion-android-delete border-dark flex-fill"></i></button></td>
+                                    </tr>
+                                    
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="tab-pane active" role="tabpanel" id = "tab-3">
+                        <div class="table-responsive" style="margin: 10px 20px 10px 10px;/*margin-right: 40px;*/">
+                            <table class="table">
+                                <thead id="task-list-3">
+                                    <tr style="margin: 10px;padding: 12px 6px;">
+                                        <th>Priority</th>
+                                        <th>Task</th>
+                                        <th>Duration</th>
+                                        <th>Status</th>
+                                        <th>
+                                            <div class="dropdown"><button class="btn btn-primary dropdown-toggle text-right bg-light border-light" aria-expanded="false" data-toggle="dropdown" id="sort" type="button" style="/*height: 30px;*/background: #dddddd;/*width: 51.6562px;*//*padding: 10px 6px;*/color: rgb(33,37,41);"><i class="fa fa-sort-amount-desc"></i></button>
+                                                <div class="dropdown-menu"><a class="dropdown-item" href="#">First Item</a><a class="dropdown-item" href="#">Second Item</a><a class="dropdown-item" href="#">Third Item</a></div>
+                                            </div>
+                                        </th>
+                                        <th><button class="btn btn-primary text-dark bg-light border-light" id="search" type="button"><i class="fa fa-search bg-light border-dark"></i></button></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>Cell 1</td>
+                                        <td>Cell 2</td>
+                                        <td>Text</td>
+                                        <td>
+                                            <div class="dropdown"><button class="btn btn-primary dropdown-toggle bg-white border rounded-pill border-white" aria-expanded="false" data-toggle="dropdown" id="status" type="button"><svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icon-tabler-sticker border-dark shadow-none" style="color: rgb(74,71,71);">
+                                                        <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                                                        <path d="M20 12l-2 .5a6 6 0 0 1 -6.5 -6.5l.5 -2l8 8"></path>
+                                                        <path d="M20 12a8 8 0 1 1 -8 -8"></path>
+                                                    </svg></button>
+                                                <div class="dropdown-menu"><a class="dropdown-item text-center bg-warning border rounded-pill" href="#">Started</a><a class="dropdown-item text-center bg-primary border rounded-pill" href="#">In progress</a><a class="dropdown-item text-center bg-success border rounded-pill" href="#">Done</a></div>
+                                            </div>
+                                        </td>
+                                        <td><button class="btn btn-primary text-center text-dark bg-light border rounded-pill border-white" data-toggle="modal" data-target="#edit-modal" id="edit" type="button"><i class="fa fa-edit"></i></button></td>
+                                        <td><button class="btn btn-primary text-dark bg-light border rounded-pill border-white" id = "delete" type="button"><i class="icon ion-android-delete border-dark flex-fill"></i></button></td>
+                                    </tr>
+                                    
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="tab-pane" role="tabpanel" id = "tab-4">
+                        <div class="table-responsive" style="margin: 10px 20px 10px 10px;/*margin-right: 40px;*/">
+                            <table class="table">
+                                <thead id="task-list-4">
+                                    <tr style="margin: 10px;padding: 12px 6px;">
+                                        <th>Priority</th>
+                                        <th>Task</th>
+                                        <th>Duration</th>
+                                        <th>Status</th>
+                                        <th>
+                                            <div class="dropdown"><button class="btn btn-primary dropdown-toggle text-right bg-light border-light" aria-expanded="false" data-toggle="dropdown" id="sort-4" type="button" style="/*height: 30px;*/background: #dddddd;/*width: 51.6562px;*//*padding: 10px 6px;*/color: rgb(33,37,41);"><i class="fa fa-sort-amount-desc"></i></button>
+                                                <div class="dropdown-menu"><a class="dropdown-item" href="#">First Item</a><a class="dropdown-item" href="#">Second Item</a><a class="dropdown-item" href="#">Third Item</a></div>
+                                            </div>
+                                        </th>
+                                        <th><button class="btn btn-primary text-dark bg-light border-light" id="search" type="button"><i class="fa fa-search bg-light border-dark"></i></button></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>Cell 1</td>
+                                        <td>Cell 2</td>
+                                        <td>Text</td>
+                                        <td>
+                                            <div class="dropdown"><button class="btn btn-primary dropdown-toggle bg-white border rounded-pill border-white" aria-expanded="false" data-toggle="dropdown" id="status" type="button"><svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icon-tabler-sticker border-dark shadow-none" style="color: rgb(74,71,71);">
+                                                        <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                                                        <path d="M20 12l-2 .5a6 6 0 0 1 -6.5 -6.5l.5 -2l8 8"></path>
+                                                        <path d="M20 12a8 8 0 1 1 -8 -8"></path>
+                                                    </svg></button>
+                                                <div class="dropdown-menu"><a class="dropdown-item text-center bg-warning border rounded-pill" href="#">Started</a><a class="dropdown-item text-center bg-primary border rounded-pill" href="#">In progress</a><a id ="done" class="dropdown-item text-center bg-success border rounded-pill" href="#">Done</a></div>
+                                            </div>
+                                        </td>
+                                        <td><button class="btn btn-primary text-center text-dark bg-light border rounded-pill border-white" data-toggle="modal" data-target="#edit-modal" id="edit" type="button"><i class="fa fa-edit"></i></button></td>
+                                        <td><button class="btn btn-primary text-dark bg-light border rounded-pill border-white" id = "delete" type="button"><i class="icon ion-android-delete border-dark flex-fill"></i></button></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+	<div class="modal fade" role="dialog" tabindex="-1" id="edit-modal">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header" style="background-color: rgb(241, 209, 0);">
+                    <h4 class="modal-title">Edit</h4><button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+                </div>
+                <div class="modal-body">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-md-4">
+                                <form><input class="form-control" type="number" id="priority-1" min="1" max="4" placeholder="Priority" style="margin: 10px;"></form>
+                            </div>
+                            <div class="col-md-4">
+                                <form><input class="form-control" type="text" id="task-1" placeholder="Task description" style="margin: 10px;"></form>
+                            </div>
+                            <div class="col-md-4">
+                                <form><input class="form-control" type="time" style="margin: 10px;" step="1"></form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer"><button class="btn btn-light" type="button" data-dismiss="modal">Close</button><button class="btn btn-primary border rounded-pill shadow-sm" id="update" type="button">Update</button></div>
+            </div>
+        </div>
+    </div>
+
+    
+    <script src="assets/js/jquery.min.js"></script>
+    <script src="assets/bootstrap/js/bootstrap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="assets/js/bs-init.js"></script>
+    <script src="assets/js/sidebar.js"></script>
+</body>
+
+</html>
